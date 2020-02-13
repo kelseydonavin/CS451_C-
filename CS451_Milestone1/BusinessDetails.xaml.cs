@@ -90,7 +90,7 @@ namespace CS451_Milestone1
 
         private void loadBusinessDetails()
         {
-            string sqlStr = "SELECT name, state, city FROM business WHERE business_id '" + this.bid + "';";
+            string sqlStr = "SELECT name, state, city FROM business WHERE business_id = '" + this.bid + "';";
             executeQuery(sqlStr, setBusinessDetails);
         }
     }

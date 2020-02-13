@@ -95,7 +95,7 @@ namespace CS451_Milestone1
 
             DataGridTextColumn col4 = new DataGridTextColumn();
             col4.Binding = new Binding("bid");
-            col4.Header = "";
+            col4.Header = "Bid";
             col4.Width = 0;
             buisnessGrid.Columns.Add(col4);
         }
@@ -138,6 +138,9 @@ namespace CS451_Milestone1
         private void addStateRow(NpgsqlDataReader R)
         {
             buisnessGrid.Items.Add(new Buisness() { name = R.GetString(0), state = R.GetString(1), city = R.GetString(2), bid = R.GetString(3) });
+            // buisnessGrid.Items.Add(new Buisness() { name = R.GetString(0), state = R.GetString(1), city = R.GetString(2) });
+            // buisnessGrid.Items.Add(new Buisness() { name = "Test", state = "Test", city = "Test", bid = "Test" });
+
         }
 
         private void addCityRow(NpgsqlDataReader R)
@@ -150,7 +153,7 @@ namespace CS451_Milestone1
             cityList.Items.Clear();
             if (stateList.SelectedIndex > -1)
             {
-                string sqlStr = "SELECT distinct city FROM business WHERE state = '" + stateList.SelectedItem.ToString() + "' ORDER BY city";
+                string sqlStr = "SELECT distinct city FROM business WHERE state = '" + stateList.SelectedItem.ToString() + "' ORDER BY city;";
                 executeQuery(sqlStr, addCityRow);
             }
         }
@@ -158,16 +161,16 @@ namespace CS451_Milestone1
         private void cityList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             buisnessGrid.Items.Clear();
-            if (stateList.SelectedIndex > -1)
+            if (cityList.SelectedIndex > -1)
             {
-                string sqlStr = "SELECT name, state, city FROM business WHERE state = '" + stateList.SelectedItem.ToString() + "' AND city = '" + cityList.SelectedItem.ToString() + "' ORDER by name;";
+                string sqlStr = "SELECT name, state, city, business_id FROM business WHERE state = '" + stateList.SelectedItem.ToString() + "' AND city = '" + cityList.SelectedItem.ToString() + "' ORDER BY name;";
                 executeQuery(sqlStr, addStateRow);
             }
         }
 
-        private void businessGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void buisnessGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(buisnessGrid.SelectedIndex > -1)
+            if (buisnessGrid.SelectedIndex > -1)
             {
                 Buisness B = buisnessGrid.Items[buisnessGrid.SelectedIndex] as Buisness;
                 if ((B.bid != null) && (B.bid.ToString().CompareTo("") != 0))
