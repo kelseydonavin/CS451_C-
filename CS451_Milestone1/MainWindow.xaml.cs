@@ -148,21 +148,21 @@ namespace CS451_Milestone1
         private void stateList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             cityList.Items.Clear();
-            if (cityList.SelectedIndex > -1)
+            if (stateList.SelectedIndex > -1)
             {
-                string sqlStr = "SELECT distinct city FROM business WHERE state = '" + stateList.SelectedItem.ToString() + "' ORDER BY city;";
+                string sqlStr = "SELECT distinct city FROM business WHERE state = '" + stateList.SelectedItem.ToString() + "' ORDER BY city";
                 executeQuery(sqlStr, addCityRow);
             }
         }
 
-        private void cityList_SelectionChanged(object sender, SelectedCellsChangedEventArgs e)
+        private void cityList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             buisnessGrid.Items.Clear();
-            if(cityList.SelectedIndex > -1)
+            if (stateList.SelectedIndex > -1)
             {
-                string sqlStr = "SELECT name, state, city FROM business WHERE state = '" + stateList.SelectedItem.ToString() + "' AND CITY = '" + cityList.SelectedItem.ToString() + "' ORDER by name;";
+                string sqlStr = "SELECT name, state, city FROM business WHERE state = '" + stateList.SelectedItem.ToString() + "' AND city = '" + cityList.SelectedItem.ToString() + "' ORDER by name;";
                 executeQuery(sqlStr, addStateRow);
-            }     
+            }
         }
 
         private void businessGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -176,26 +176,6 @@ namespace CS451_Milestone1
                     businessWindow.Show();
                 }
 
-            }
-        }
-
-        private void cityList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            buisnessGrid.Items.Clear();
-            if (cityList.SelectedIndex > -1)
-            {
-                string sqlStr = "SELECT name, state, city FROM business WHERE state = '" + stateList.SelectedItem.ToString() + "' AND CITY = '" + cityList.SelectedItem.ToString() + "' ORDER by name;";
-                executeQuery(sqlStr, addStateRow);
-            }
-        }
-
-        private void stateList_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
-        {
-            cityList.Items.Clear();
-            if (cityList.SelectedIndex > -1)
-            {
-                string sqlStr = "SELECT distinct state FROM business ORDER BY state";
-                executeQuery(sqlStr, addCityRow);
             }
         }
     }

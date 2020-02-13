@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="YelpApp M1" Height="450" Width="600">
     <Grid>
-        <ComboBox Name="stateList" HorizontalAlignment="Left" VerticalAlignment="Center" Width="150" Margin="225,10,0,388.667" SelectionChanged="stateList_SelectionChanged_1"/>
+        <ComboBox Name="stateList" HorizontalAlignment="Left" VerticalAlignment="Center" Width="150" Margin="225,10,0,388.667" SelectionChanged="stateList_SelectionChanged"/>
         <ComboBox Name="cityList" HorizontalAlignment="Left" Margin="225,50,0,0" VerticalAlignment="Top" Width="150" SelectionChanged="cityList_SelectionChanged"/>
         <Label Name="stateLabel" Content="State" HorizontalAlignment="Left" Margin="175,5,0,0" VerticalAlignment="Top"/>
         <Label Name="cityLabel" Content="City" HorizontalAlignment="Left" Margin="175,50,0,0" VerticalAlignment="Top"/>
