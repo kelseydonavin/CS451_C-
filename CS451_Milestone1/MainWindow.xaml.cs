@@ -38,13 +38,38 @@ namespace CS451_Milestone1
         public MainWindow()
         {
             InitializeComponent();
+            addState();
             addColumnsToGrid();
+
         }
 
 
         private void addState()
         {
-            var connection = new NpgsqlConnection(buildConnectionString());
+            using (var connection = new NpgsqlConnection(buildConnectionString()))
+            {
+                connection.Open();
+                using (var cmd = new NpgsqlCommand())
+                {
+                    cmd.Connection = connection;
+                    cmd.CommandText = "SELECT distinct state FROM business ORDER BY state";
+                    try
+                    {
+                        var reader = cmd.ExecuteReader();
+                        while (reader.Read())
+                            stateList.Items.Add(reader.GetString(0));
+                    }
+                    catch (NpgsqlException ex)
+                    {
+                        Console.WriteLine(ex.Message.ToString());
+                        System.Windows.MessageBox.Show("SQL Error - " + ex.Message.ToString());
+                    }
+                    finally
+                    {
+                        connection.Close();
+                    }
+                }
+            }
             
         }
 
@@ -94,9 +119,11 @@ namespace CS451_Milestone1
                         var reader = cmd.ExecuteReader();
                         while (reader.Read())
                             myF(reader);
+                        Console.WriteLine("Connected successfully!");
                     }
                     catch (NpgsqlException ex)
                     {
+                        Console.WriteLine("Could not connect to postgreSQL!");
                         Console.WriteLine(ex.Message.ToString());
                         System.Windows.MessageBox.Show("SQL Error -" + ex.Message.ToString());
                     }
@@ -118,24 +145,24 @@ namespace CS451_Milestone1
             cityList.Items.Add(R.GetString(0));
         }
 
-        private void stateList_SelectChanged(object sender, SelectionChangedEventArgs e)
+        private void stateList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             cityList.Items.Clear();
-            if(stateList.SelectedIndex > -1)
+            if (cityList.SelectedIndex > -1)
             {
-                string sqlStr = "SELECT distinct city FROM business WHERE state = '" + stateList.SelectedItem.ToString() + "' ORDER BY city";
+                string sqlStr = "SELECT distinct city FROM business WHERE state = '" + stateList.SelectedItem.ToString() + "' ORDER BY city;";
                 executeQuery(sqlStr, addCityRow);
             }
         }
 
-        private void cityList_SelectChanged(object sender, SelectedCellsChangedEventArgs e)
+        private void cityList_SelectionChanged(object sender, SelectedCellsChangedEventArgs e)
         {
             buisnessGrid.Items.Clear();
             if(cityList.SelectedIndex > -1)
             {
                 string sqlStr = "SELECT name, state, city FROM business WHERE state = '" + stateList.SelectedItem.ToString() + "' AND CITY = '" + cityList.SelectedItem.ToString() + "' ORDER by name;";
                 executeQuery(sqlStr, addStateRow);
-            }
+            }     
         }
 
         private void businessGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -149,6 +176,26 @@ namespace CS451_Milestone1
                     businessWindow.Show();
                 }
 
+            }
+        }
+
+        private void cityList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            buisnessGrid.Items.Clear();
+            if (cityList.SelectedIndex > -1)
+            {
+                string sqlStr = "SELECT name, state, city FROM business WHERE state = '" + stateList.SelectedItem.ToString() + "' AND CITY = '" + cityList.SelectedItem.ToString() + "' ORDER by name;";
+                executeQuery(sqlStr, addStateRow);
+            }
+        }
+
+        private void stateList_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        {
+            cityList.Items.Clear();
+            if (cityList.SelectedIndex > -1)
+            {
+                string sqlStr = "SELECT distinct state FROM business ORDER BY state";
+                executeQuery(sqlStr, addCityRow);
             }
         }
     }

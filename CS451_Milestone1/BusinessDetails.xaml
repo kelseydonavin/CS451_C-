@@ -10,7 +10,7 @@
         <Label Content="Business Name" HorizontalAlignment="Left" Margin="55,35,0,0" FontSize="14" VerticalAlignment="Top"/>
         <Label Content="State" HorizontalAlignment="Left" Margin="55,60,0,0" FontSize="14" VerticalAlignment="Top"/>
         <Label Content="City" HorizontalAlignment="Left" Margin="55,90,0,0" FontSize="14" VerticalAlignment="Top"/>
-        <TextBox x:Name="bname" HorizontalAlignment="Left" Height="23" Margin="200,35,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" TextChanged="Buisness_TextChanged"/>
+        <TextBox x:Name="bname" HorizontalAlignment="Left" Height="23" Margin="200,35,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" />
         <TextBox x:Name="state" HorizontalAlignment="Left" Height="23" Margin="200,65,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="city" HorizontalAlignment="Left" Height="23" Margin="200,95,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
         <Label Content="Number of businesses in the same state:" HorizontalAlignment="Left" Margin="55,130,0,0" FontSize="14" VerticalAlignment="Top"/>
