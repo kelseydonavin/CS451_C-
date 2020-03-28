@@ -1,0 +1,18 @@
+﻿<Window x:Class="CS451_Milestone1.BuisnessTips"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CS451_Milestone1"
+        mc:Ignorable="d"
+        Title="BuisnessTips" Height="450" Width="800">
+    <Grid>
+        <DataGrid HorizontalAlignment="Left" Height="197" Margin="10,50,0,0" VerticalAlignment="Top" Width="773"/>
+        <TextBox HorizontalAlignment="Left" Height="97" Margin="10,273,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="773"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,254,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="Create New Tip"/><LineBreak/><Run/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="10,29,0,0" TextWrapping="Wrap" Text="Business Tips" VerticalAlignment="Top"/>
+        <Button Content="Submit" HorizontalAlignment="Left" Margin="10,375,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Exit" HorizontalAlignment="Left" Margin="708,380,0,0" VerticalAlignment="Top" Width="75"/>
+
+    </Grid>
+</Window>
