@@ -10,8 +10,10 @@
         <ComboBox Name="stateList" HorizontalAlignment="Left" VerticalAlignment="Center" Width="150" Margin="225,10,0,388.667" SelectionChanged="stateList_SelectionChanged"/>
         <ComboBox Name="cityList" HorizontalAlignment="Left" Margin="225,50,0,0" VerticalAlignment="Top" Width="150" SelectionChanged="cityList_SelectionChanged"/>
         <Label Name="stateLabel" Content="State" HorizontalAlignment="Left" Margin="175,5,0,0" VerticalAlignment="Top"/>
-        <Label Name="cityLabel" Content="City" HorizontalAlignment="Left" Margin="175,50,0,0" VerticalAlignment="Top"/>
+        <Label Name="cityLabel" Content="City &amp; Zipcode&#xD;&#xA;" HorizontalAlignment="Left" Margin="123,50,0,0" VerticalAlignment="Top"/>
         <DataGrid Name="buisnessGrid" HorizontalAlignment="Left" Height="300" Margin="100,100,0,0" VerticalAlignment="Top" Width="400" SelectionChanged="buisnessGrid_SelectionChanged"/>
+        <ComboBox Name="zipcodeList" HorizontalAlignment="Left" Margin="380,50,0,0" VerticalAlignment="Top" Width="120"  />
         
+
     </Grid>
 </Window>

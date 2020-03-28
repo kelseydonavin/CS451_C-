@@ -24,7 +24,33 @@ namespace CS451_Milestone1
             InitializeComponent();
         }
 
+        private string buildConnectionString()
+        {
+            return "Host = localhost; Username = postgres; Database = milestone1db; password=#NicetryNathan01";
+        }
+
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            foreach(object category in categoriesListBox.SelectedItems)
+            {
+
+            }
+        }
+
+        private void addColumnsToGrid()
+        {
+            DataGridTextColumn col1 = new DataGridTextColumn();
+            col1.Binding = new Binding("name");
+            col1.Header = "Business Name";
+            col1.Width = 255;
+            DataGridTextColumn col2 = new DataGridTextColumn();
+            col2.Binding = new Binding("tips");
+            col2.Header = "Business Tips";
+            col2.Width = 150;
+
+        }
+
+        private void CategoriesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }

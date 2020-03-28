@@ -33,12 +33,14 @@ namespace CS451_Milestone1
             public string name { get; set; }
             public string state { get; set; }
             public string city { get; set;  }
+            //public string zipcode { get; set; }
         }
 
         public MainWindow()
         {
             InitializeComponent();
             addState();
+            addZipCode();
             addColumnsToGrid();
 
         }
@@ -73,6 +75,15 @@ namespace CS451_Milestone1
             
         }
 
+        private void addZipCode()
+        {
+            zipcodeList.Items.Add("88977");
+            zipcodeList.Items.Add("78899");
+            zipcodeList.Items.Add("17489");
+            zipcodeList.Items.Add("78414");
+            zipcodeList.Items.Add("78954");
+        }
+
         private void addColumnsToGrid()
         {
             DataGridTextColumn col1 = new DataGridTextColumn();
@@ -102,7 +113,7 @@ namespace CS451_Milestone1
 
         private string buildConnectionString()
         {
-            return "Host = localhost; Username = postgres; Database = milestone1db; password=wsustudent";
+            return "Host = localhost; Username = postgres; Database = milestone1db; password=#NicetryNathan01";
         }
 
         private void executeQuery(string sqlStr, Action<NpgsqlDataReader> myF)

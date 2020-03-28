@@ -7,15 +7,18 @@
         mc:Ignorable="d"
         Title="ZipcodeBusinesses" Height="450" Width="800">
     <Grid>
-        <DataGrid HorizontalAlignment="Left" Height="354" Margin="256,28,0,0" VerticalAlignment="Top" Width="527"/>
-        <ListBox HorizontalAlignment="Left" Height="354" Margin="20,28,0,0" VerticalAlignment="Top" Width="218">
-            <CheckBox/>
-            <CheckBox/>
-            <CheckBox/>
-            <CheckBox/>
-            <CheckBox/>
-            <CheckBox/>
+        <DataGrid HorizontalAlignment="Left" Height="354" Margin="256,57,0,0" VerticalAlignment="Top" Width="527"/>
+        <ListBox x:Name="categoriesListBox" HorizontalAlignment="Left" Height="354" Margin="10,57,0,0" VerticalAlignment="Top" Width="218" SelectionChanged="CategoriesListBox_SelectionChanged">
+            <CheckBox Content="Gym"/>
+            <CheckBox Content="Autoshop"/>
+            <CheckBox Content="Resutrant"/>
+            <CheckBox Content="Fast Food"/>
+            <CheckBox Content="Gas Station"/>
+            <CheckBox Content="Post Office"/>
+
         </ListBox>
+        <TextBlock HorizontalAlignment="Left" Margin="10,37,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="Catgegories"/><LineBreak/><Run/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="256,37,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="Businesses at Zipcode"/><LineBreak/><Run/></TextBlock>
 
     </Grid>
 </Window>

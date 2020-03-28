@@ -32,7 +32,7 @@ namespace CS451_Milestone1
 
         private string buildConnectionString()
         {
-            return "Host = localhost; Username = postgres; Database = milestone1db; password=wsustudent";
+            return "Host = localhost; Username = postgres; Database = milestone1db; password=#NicetryNathan01";
         }
 
         private void executeQuery(string sqlStr, Action<NpgsqlDataReader> myF)
