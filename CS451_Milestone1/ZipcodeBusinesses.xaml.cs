@@ -26,7 +26,7 @@ namespace CS451_Milestone1
 
         private string buildConnectionString()
         {
-            return "Host = localhost; Username = postgres; Database = milestone1db; password=#NicetryNathan01";
+            return "Host = localhost; Username = postgres; Database = Project51; password = Luckyme324";
         }
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
