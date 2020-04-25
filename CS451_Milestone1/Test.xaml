@@ -1,18 +1,18 @@
-﻿<Window x:Class="CS451_Milestone1.UserInformation"
+﻿<Window x:Class="CS451_Milestone1.Test"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CS451_Milestone1"
         mc:Ignorable="d"
-        Title="Yelp" Margin="0" Height="768.267" Width="1324.494">
+        Title="Test" Margin="0" Height="768.267" Width="1324.494">
     <TabControl HorizontalAlignment="Left" Height="721" Margin="10,10,0,0" VerticalAlignment="Top" Width="1304">
         <TabItem Header="User Information">
             <Grid Background="#D3D3D3">
                 <GroupBox Header="Set Current User" HorizontalAlignment="Left" Height="310" Margin="10,10,0,0" VerticalAlignment="Top" Width="200">
                     <StackPanel>
                         <TextBox x:Name="Username" Height="23" Margin="5,10,5,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-                        <TextBox Margin="5,10,5,0" TextWrapping="Wrap" Height="237"/>
+                        <TextBox Name="UserID" Margin="5,10,5,0" TextWrapping="Wrap" Height="237"/>
                     </StackPanel>
                 </GroupBox>
                 <GroupBox Header="User Information" HorizontalAlignment="Left" Height="310" Margin="215,10,0,0" VerticalAlignment="Top" Width="300">
@@ -67,7 +67,7 @@
                     </StackPanel>
                 </GroupBox>
                 <GroupBox Header="Friends" HorizontalAlignment="Left" Height="358" Margin="10,325,0,0" VerticalAlignment="Top" Width="505">
-                    <DataGrid Name="DG1" ItemsSource="{Binding}" AutoGenerateColumns="True">
+                    <DataGrid Name="friendsGrid" ItemsSource="{Binding}" AutoGenerateColumns="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Name"  Width="100" Binding="{Binding Name}"/>
                             <DataGridTextColumn Header="Total Likes" Width="80" Binding="{Binding TotalLikes}" />
