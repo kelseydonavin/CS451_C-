@@ -89,6 +89,9 @@
     <Compile Include="BuisnessTips.xaml.cs">
       <DependentUpon>BuisnessTips.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Yelp.xaml.cs">
+      <DependentUpon>Yelp.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ZipcodeBusinesses.xaml.cs">
       <DependentUpon>ZipcodeBusinesses.xaml</DependentUpon>
     </Compile>
@@ -115,6 +118,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Yelp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ZipcodeBusinesses.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
