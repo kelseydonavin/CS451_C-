@@ -79,6 +79,7 @@ namespace CS451_Milestone1
         internal System.Windows.Controls.TextBox Username;
         internal System.Windows.Controls.DataGrid DG1;
         internal System.Windows.Controls.DataGrid DG2;
+        internal System.Windows.Controls.DataGrid DG3;
     }
 }
 

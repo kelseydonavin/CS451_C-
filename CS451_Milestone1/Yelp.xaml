@@ -90,7 +90,101 @@
             </Grid>
         </TabItem>
         <TabItem Header="Business Search">
-            <Grid Background="#FFE5E5E5"/>
+            <Grid Background="#FFE5E5E5">
+                <GroupBox Header="Select Location" HorizontalAlignment="Left" Height="264" Margin="10,10,0,0" VerticalAlignment="Top" Width="189">
+                    <StackPanel Orientation="Vertical">
+                        <WrapPanel>
+                            <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="State" VerticalAlignment="Top"/>
+                            <ComboBox Margin="20,8,0,0" Height="22" Width="100"></ComboBox>
+                        </WrapPanel>
+                        <TextBlock Text="City" HorizontalAlignment="Left" Margin="10,10,0,0"></TextBlock>
+                        <TextBox Margin="10,0,10,0" Height="80"></TextBox>
+                        <TextBlock Text="Zipcode" HorizontalAlignment="Left" Margin="10,10,0,0"></TextBlock>
+                        <TextBox Margin="10,0,10,0" Height="69"></TextBox>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Header="Business Category" HorizontalAlignment="Left" Height="399" Margin="10,279,0,0" VerticalAlignment="Top" Width="189">
+                    <StackPanel>
+                        <TextBox Margin="10,10,10,0" Height="187"></TextBox>
+                        <WrapPanel>
+                            <Button Margin="9" Width="75" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center">Add</Button>
+                            <Button Width="75" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Remove"/>
+                        </WrapPanel>
+                        <TextBox Margin="10,0,10,0" Height="90"></TextBox>
+                        <Button Margin="9" Width="157.2" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="Black" Background="#FFBEBAD0" FontWeight="Bold">Search Businesses</Button>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Header="SEARCH RESULTS" HorizontalAlignment="Left" Height="354" Margin="204,10,0,0" VerticalAlignment="Top" Width="833">
+                    <DataGrid Name="DG3" ItemsSource="{Binding}" AutoGenerateColumns="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Business Name" Width="140" Binding="{Binding BusinessName}"/>
+                            <DataGridTextColumn Header="Address" Width="160" Binding="{Binding Address}" />
+                            <DataGridTextColumn Header="City" Width="100" Binding="{Binding City}" />
+                            <DataGridTextColumn Header="State" Width="80" Binding="{Binding State}" />
+                            <DataGridTextColumn Header="Distance (miles)" Width="100" Binding="{Binding Distance}"/>
+                            <DataGridTextColumn Header="Stars" Width="80" Binding="{Binding Stars}" />
+                            <DataGridTextColumn Header="# of Tips" Width="80" Binding="{Binding Tips}" />
+                            <DataGridTextColumn Header="Total Checkins" Width="80" Binding="{Binding Checkins}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </GroupBox>
+                <GroupBox Header="Selected Business" HorizontalAlignment="Left" Height="309" Margin="204,369,0,0" VerticalAlignment="Top" Width="1084">
+                    <WrapPanel>
+                        <StackPanel Height="280" Width="650">
+                            <TextBox Margin="25" IsReadOnly="True" Height="30" Text="Business Name" FontWeight="Bold" FontSize="16" Background="#FFB7D6DF"/>
+                            <TextBox Margin="25,0,25,25" IsReadOnly="True" Height="30" Text="Address" FontSize="16" Background="#FFB7D6DF"/>
+                            <TextBox Margin="25,0,25,25" IsReadOnly="True" Height="30" Text="Today: Opens / Closes" FontSize="16" Background="#FFB7D6DF"/>
+                        </StackPanel>
+                        <StackPanel Width="170">
+                            <Button Content="Show Checkins" Margin="0,25,0,0" Height="100" Width="130" FontSize="18"/>
+                            <Button Content="Show Tips" Margin="0,25,0,0" Height="100" Width="130" FontSize="18"/>
+                        </StackPanel>
+                        <StackPanel Width="252">
+                            <TextBox Height="280"/>
+                        </StackPanel>
+                    </WrapPanel>
+                </GroupBox>
+                <GroupBox Header="Filter by Price" HorizontalAlignment="Left" Height="72" Margin="1042,10,0,0" VerticalAlignment="Top" Width="246">
+                    <StackPanel>
+                        <WrapPanel>
+                            <CheckBox Margin="50,5,5,5" Content="$"></CheckBox>
+                            <CheckBox Margin="50,5,5,5" Content="$$"></CheckBox>
+                        </WrapPanel>
+                        <WrapPanel>
+                            <CheckBox Margin="50,5,5,5" Content="$$$"></CheckBox>
+                            <CheckBox Margin="37.2,5,5,5" Content="$$$$"></CheckBox>
+                        </WrapPanel>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Header="Filter by Attributes" HorizontalAlignment="Left" Height="200" Margin="1042,87,0,0" VerticalAlignment="Top" Width="149">
+                    <StackPanel>
+                        <CheckBox Margin="0,2,0,0" Content="Accepts Credit Cards"/>
+                        <CheckBox Margin="0,2,0,0" Content="Takes Reservations"/>
+                        <CheckBox Margin="0,2,0,0" Content="Wheelchair Accessible"/>
+                        <CheckBox Margin="0,2,0,0" Content="Outdoor Seating"/>
+                        <CheckBox Margin="0,2,0,0" Content="Good for Kids"/>
+                        <CheckBox Margin="0,2,0,0" Content="Good for Groups"/>
+                        <CheckBox Margin="0,2,0,0" Content="Delivery"/>
+                        <CheckBox Margin="0,2,0,0" Content="Takeout"/>
+                        <CheckBox Margin="0,2,0,0" Content="Free Wi-Fi"/>
+                        <CheckBox Margin="0,2,0,0" Content="Bike Parking"/>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Header="Filter by Meal" HorizontalAlignment="Left" Height="200" Margin="1196,87,0,0" VerticalAlignment="Top" Width="92">
+                    <StackPanel>
+                        <CheckBox Margin="0,5,0,0" Content="Breakfast"/>
+                        <CheckBox Margin="0,5,0,0" Content="Lunch"/>
+                        <CheckBox Margin="0,5,0,0" Content="Brunch"/>
+                        <CheckBox Margin="0,5,0,0" Content="Dinner"/>
+                        <CheckBox Margin="0,5,0,0" Content="Dessert"/>
+                        <CheckBox Margin="0,5,0,0" Content="Late Night"/>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Header="Sort Results by" HorizontalAlignment="Left" Height="72" Margin="1042,292,0,0" VerticalAlignment="Top" Width="246">
+                    <ComboBox Text="Name (default)" Margin="12" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" IsEditable="True">
+                    </ComboBox>
+                </GroupBox>
+            </Grid>
         </TabItem>
     </TabControl>
 </Window>
