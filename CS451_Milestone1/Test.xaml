@@ -11,57 +11,59 @@
             <Grid Background="#D3D3D3">
                 <GroupBox Header="Set Current User" HorizontalAlignment="Left" Height="310" Margin="10,10,0,0" VerticalAlignment="Top" Width="200">
                     <StackPanel>
-                        <TextBox x:Name="Username" Height="23" Margin="5,10,5,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-                        <TextBox Name="UserID" Margin="5,10,5,0" TextWrapping="Wrap" Height="237"/>
+                        <WrapPanel>
+                            <TextBox x:Name="Username" TextWrapping="Wrap" Height="23" Width="100" Margin="5,10,5,0" VerticalAlignment="Top"/>
+                            <Button Margin="5,10,5,0" Width="60" Click="Button_Click">Search</Button>
+                        </WrapPanel>
+                        <ListBox Name="UserID" SelectionChanged="userID_SelectionChanged" Margin="5,10,5,0" Height="237"/>
                     </StackPanel>
                 </GroupBox>
                 <GroupBox Header="User Information" HorizontalAlignment="Left" Height="310" Margin="215,10,0,0" VerticalAlignment="Top" Width="300">
                     <StackPanel Orientation="Vertical">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                             <TextBlock Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="39" Text="Name"/>
-                            <TextBox Margin="60,10,0,0" Width="170" IsReadOnly="True" Background="#EBECF0"/>
+                            <TextBox Name="Name" Margin="60,10,0,0" Width="170" IsReadOnly="True" Background="#EBECF0"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                             <TextBlock Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="39" Text="Stars"/>
-                            <TextBox Margin="60,10,0,0" Width="170" IsReadOnly="True" Background="#EBECF0"/>
+                            <TextBox Name="Stars" Margin="60,10,0,0" Width="170" IsReadOnly="True" Background="#EBECF0"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                             <TextBlock Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="39" Text="Fans"/>
-                            <TextBox Margin="60,10,0,0" Width="170" IsReadOnly="True" Background="#EBECF0"/>
+                            <TextBox Name="Fans" Margin="60,10,0,0" Width="170" IsReadOnly="True" Background="#EBECF0"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                             <TextBlock Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="80" Text="Yelping Since"/>
-                            <TextBox Margin="19,10,0,0" Width="170" IsReadOnly="True" Background="#EBECF0"/>
+                            <TextBox Name="YelpingSince" Margin="19,10,0,0" Width="170" IsReadOnly="True" Background="#EBECF0"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                             <TextBlock Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="39" Text="Votes:"/>
                             <TextBlock Margin="13,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="37" Text="Funny"/>
-                            <TextBox Margin="0,10,0,0" Width="35" IsReadOnly="True" Background="#EBECF0"/>
+                            <TextBox Name="Funny" Margin="0,10,0,0" Width="35" IsReadOnly="True" Background="#EBECF0"/>
                             <TextBlock Margin="5,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="37" Text="Useful"/>
-                            <TextBox Margin="0,10,0,0" Width="35" IsReadOnly="True" Background="#EBECF0"/>
+                            <TextBox Name="Useful" Margin="0,10,0,0" Width="35" IsReadOnly="True" Background="#EBECF0"/>
                             <TextBlock Margin="5,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="27" Text="Cool"/>
-                            <TextBox Margin="0,10,0,0" Width="35" IsReadOnly="True" Background="#EBECF0"/>
+                            <TextBox Name="Cool" Margin="0,10,0,0" Width="35" IsReadOnly="True" Background="#EBECF0"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                             <TextBlock Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="80" Text="Tip Count"/>
-                            <TextBox Margin="19,10,0,0" Width="170" IsReadOnly="True" Background="#EBECF0"/>
+                            <TextBox Name="TipCount" Margin="19,10,0,0" Width="170" IsReadOnly="True" Background="#EBECF0"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                             <TextBlock Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="80" Text="Total Tip Likes"/>
-                            <TextBox Margin="19,10,0,0" Width="170" IsReadOnly="True" Background="#EBECF0"/>
+                            <TextBox Name="TotalTipLikes" Margin="19,10,0,0" Width="170" IsReadOnly="True" Background="#EBECF0"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                             <TextBlock Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="80" Text="Location"/>
-                            <TextBox Margin="19,10,0,0" Width="170" IsReadOnly="True" Background="#EBECF0"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                             <TextBlock Margin="30,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="79" Text="Latitude"/>
-                            <TextBox Margin="0,10,0,0" Width="100" IsReadOnly="True" Background="#EBECF0"/>
+                            <TextBox Name="Latitude" Margin="0,10,0,0" Width="100" IsReadOnly="True" Background="#EBECF0"/>
                             <Button Margin="10,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="58">Edit</Button>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                             <TextBlock Margin="30,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="79" Text="Longitude"/>
-                            <TextBox Margin="0,10,0,0" Width="100" IsReadOnly="True" Background="#EBECF0"/>
+                            <TextBox Name="Longitude" Margin="0,10,0,0" Width="100" IsReadOnly="True" Background="#EBECF0"/>
                             <Button Margin="10,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="58">Update</Button>
                         </StackPanel>
                     </StackPanel>
