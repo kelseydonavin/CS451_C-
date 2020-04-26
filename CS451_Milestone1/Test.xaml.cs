@@ -29,6 +29,7 @@ namespace CS451_Milestone1
         public Test()
         {
             InitializeComponent();
+            addState();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -124,6 +125,106 @@ namespace CS451_Milestone1
                 });
             }
             distinctID.Add(R.GetString(0));
+        }
+
+        private void addState()
+        {
+            using (var connection = new NpgsqlConnection(buildConnectionString()))
+            {
+                connection.Open();
+                using (var cmd = new NpgsqlCommand())
+                {
+                    cmd.Connection = connection;
+                    cmd.CommandText = "SELECT distinct state FROM business ORDER BY state";
+                    try
+                    {
+                        var reader = cmd.ExecuteReader();
+                        while (reader.Read())
+                            stateList.Items.Add(reader.GetString(0));
+                    }
+                    catch (NpgsqlException ex)
+                    {
+                        Console.WriteLine(ex.Message.ToString());
+                        System.Windows.MessageBox.Show("SQL Error - " + ex.Message.ToString());
+                    }
+                    finally
+                    {
+                        connection.Close();
+                    }
+                }
+            }
+        }
+
+        private void addCityRow(NpgsqlDataReader R)
+        {
+            cityList.Items.Add(R.GetString(0));
+        }
+
+        private void stateList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            cityList.Items.Clear();
+            if (stateList.SelectedIndex > -1)
+            {
+                string sqlStr = "SELECT distinct city FROM business WHERE state = '" + stateList.SelectedItem.ToString() + "' ORDER BY city;";
+                executeQuery(sqlStr, addCityRow);
+            }
+        }
+
+        private void addZipcodeRow(NpgsqlDataReader R)
+        {
+            zipcodeList.Items.Add(R.GetInt64(0).ToString());
+        }
+
+        private void cityList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            zipcodeList.Items.Clear();
+            if (cityList.SelectedIndex > -1)
+            {
+                string sqlStr = "SELECT distinct postal_code FROM business WHERE state = '" + stateList.SelectedItem.ToString() + "' AND city = '" + cityList.SelectedItem.ToString() + "' ORDER BY postal_code";
+                executeQuery(sqlStr, addZipcodeRow);
+            }
+        }
+
+        private void addSearchResultsRow(NpgsqlDataReader R)
+        {
+            // Calculate distance
+            double lat1 = (R.GetDouble(3) * Math.PI) / 180;
+            double long1 = (R.GetDouble(4) * Math.PI) / 180;
+            double lat2 = (Convert.ToDouble(Latitude.Text) * Math.PI) / 180;
+            double long2 = (Convert.ToDouble(Longitude.Text) * Math.PI) / 180;
+            double dlat = lat2 - lat1;
+            double dlong = long2 - long1;
+            double a = Math.Pow(Math.Sin(dlat / 2), 2) +
+                   Math.Cos(lat1) * Math.Cos(lat2) *
+                   Math.Pow(Math.Sin(dlong / 2), 2);
+            double c = 2 * Math.Asin(Math.Sqrt(a));
+            double r = 3956;
+            double distance = c * r;
+
+            searchResults.Items.Add(new
+            {
+                BusinessName = R.GetString(0),
+                Address = "",
+                City = R.GetString(1),
+                State = R.GetString(2),
+                Distance = Math.Round(distance, 2),
+                Stars = R.GetDouble(5),
+                Tips = R.GetInt64(6),
+                Checkins = R.GetInt64(7)
+            });
+        }
+
+        private void zipcodeList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            searchResults.Items.Clear();
+            if (zipcodeList.SelectedIndex > -1)
+            {
+                string sqlStr =
+                    "SELECT name, city, state, latitude, longitude, stars, tip_count, check_in_count FROM Business " +
+                    "WHERE state = '" + stateList.SelectedItem + "' AND city = '" + cityList.SelectedItem + "' AND postal_code = " + zipcodeList.SelectedItem + 
+                    " ORDER BY name";
+                executeQuery(sqlStr, addSearchResultsRow);
+            }
         }
 
         private string buildConnectionString()
