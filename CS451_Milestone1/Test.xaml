@@ -69,23 +69,29 @@
                     </StackPanel>
                 </GroupBox>
                 <GroupBox Header="Friends" HorizontalAlignment="Left" Height="358" Margin="10,325,0,0" VerticalAlignment="Top" Width="505">
-                    <DataGrid Name="friendsGrid" ItemsSource="{Binding}" AutoGenerateColumns="True">
+                    <DataGrid Name="FriendsGrid" ItemsSource="{Binding}" AutoGenerateColumns="True">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Name"  Width="100" Binding="{Binding Name}"/>
-                            <DataGridTextColumn Header="Total Likes" Width="80" Binding="{Binding TotalLikes}" />
-                            <DataGridCheckBoxColumn Header="Avg Stars" Width="80" Binding="{Binding AvgStars}" />
-                            <DataGridComboBoxColumn Header="Yelping Since" Width="232" SelectedItemBinding="{Binding YelpingSince}" />
+                            <DataGridTextColumn Header="Name"  Width="100" Binding="{Binding Name, Mode=OneWay}"/>
+                            <DataGridTextColumn Header="Total Likes" Width="80" Binding="{Binding TotalLikes, Mode=OneTime}" />
+                            <DataGridTextColumn Header="Avg Stars" Width="80" Binding="{Binding AvgStars, Mode=OneWay}" />
+                            <DataGridTextColumn Header="Yelping Since" Width="200" Binding="{Binding YelpingSince, Mode=OneWay}" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </GroupBox>
                 <GroupBox Header="Latest Tips from Friends" HorizontalAlignment="Left" Height="673" Margin="520,10,0,0" VerticalAlignment="Top" Width="768">
-                    <DataGrid Name="DG2" ItemsSource="{Binding}" AutoGenerateColumns="True">
+                    <DataGrid Name="FriendsTips" ItemsSource="{Binding}" AutoGenerateColumns="True">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="User Name"  Width="100" Binding="{Binding UserName}"/>
-                            <DataGridTextColumn Header="Business" Width="100" Binding="{Binding Business}" />
-                            <DataGridCheckBoxColumn Header="City" Width="80" Binding="{Binding City}" />
-                            <DataGridComboBoxColumn Header="Text" Width="326" SelectedItemBinding="{Binding Text}" />
-                            <DataGridComboBoxColumn Header="Date" Width="150" SelectedItemBinding="{Binding Date}" />
+                            <DataGridTextColumn Header="User Name"  Width="70" Binding="{Binding UserName, Mode=OneWay}"/>
+                            <DataGridTextColumn Header="Business" Width="80" Binding="{Binding Business, Mode=OneWay}" />
+                            <DataGridTextColumn Header="City" Width="60" Binding="{Binding City, Mode=OneWay}" />
+                            <DataGridTextColumn Header="Text" Width="400" Binding="{Binding Text, Mode=OneWay}">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="TextWrapping" Value="Wrap"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Date" Width="110" Binding="{Binding Date, Mode=OneWay}" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </GroupBox>
