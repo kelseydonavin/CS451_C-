@@ -113,13 +113,13 @@
                 </GroupBox>
                 <GroupBox Header="Business Category" HorizontalAlignment="Left" Height="399" Margin="10,279,0,0" VerticalAlignment="Top" Width="189">
                     <StackPanel>
-                        <TextBox Margin="10,10,10,0" Height="187"></TextBox>
+                        <ListBox Name="BusinessCategories" Margin="10,10,10,0" Height="187"></ListBox>
                         <WrapPanel>
-                            <Button Margin="9" Width="75" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center">Add</Button>
-                            <Button Width="75" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Remove"/>
+                            <Button Click="Button_Click4" Margin="9" Width="75" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center">Add</Button>
+                            <Button Click="Button_Click5" Width="75" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Remove"/>
                         </WrapPanel>
-                        <TextBox Margin="10,0,10,0" Height="90"></TextBox>
-                        <Button Margin="9" Width="157.2" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="Black" Background="#FFBEBAD0" FontWeight="Bold">Search Businesses</Button>
+                        <ListBox Name="BusinessSelectedCategories" Margin="10,0,10,0" Height="90"></ListBox>
+                        <Button Click="Button_Click6" Margin="9" Width="157.2" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="Black" Background="#FFBEBAD0" FontWeight="Bold">Search Businesses</Button>
                     </StackPanel>
                 </GroupBox>
                 <GroupBox Header="SEARCH RESULTS" HorizontalAlignment="Left" Height="354" Margin="204,10,0,0" VerticalAlignment="Top" Width="833">

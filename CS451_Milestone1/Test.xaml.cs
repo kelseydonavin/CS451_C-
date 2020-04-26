@@ -54,6 +54,36 @@ namespace CS451_Milestone1
             Longitude.IsReadOnly = true;
         }
 
+        private void Button_Click4(object sender, RoutedEventArgs e)
+        {
+            BusinessSelectedCategories.Items.Add(BusinessCategories.SelectedItem);
+        }
+
+        private void Button_Click5(object sender, RoutedEventArgs e)
+        {
+            BusinessSelectedCategories.Items.Remove(BusinessSelectedCategories.SelectedItem);
+        }
+
+        private void Button_Click6(object sender, RoutedEventArgs e)
+        {
+            // Build category string for SQL
+            string categoryString = "";
+            foreach (var item in BusinessSelectedCategories.Items)
+            {
+                categoryString += "category = '" + item + "' OR ";
+            }
+            categoryString = categoryString.Substring(0, categoryString.Length - 4);
+
+            searchResults.Items.Clear();
+            string sqlStr =
+                "SELECT name, city, state, latitude, longitude, stars, tip_count, check_in_count " +
+                "FROM Business as b INNER JOIN category as c ON b.business_id = c.business_id " +
+                "WHERE state = '" + stateList.SelectedItem + "' AND city = '" + cityList.SelectedItem + "' AND postal_code = " + zipcodeList.SelectedItem +
+                " AND (" + categoryString + ") GROUP BY b.name, b.city, b.state, b.latitude, b.longitude, b.stars, b.tip_count, b.check_in_count " +
+                "Having Count(name) = " + BusinessSelectedCategories.Items.Count + " ORDER BY name";
+            executeQuery(sqlStr, addSearchResultsRow);
+        }
+
         private void userID_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (UserID.SelectedIndex > -1)
@@ -190,8 +220,9 @@ namespace CS451_Milestone1
             // Calculate distance
             double lat1 = (R.GetDouble(3) * Math.PI) / 180;
             double long1 = (R.GetDouble(4) * Math.PI) / 180;
-            double lat2 = (Convert.ToDouble(Latitude.Text) * Math.PI) / 180;
-            double long2 = (Convert.ToDouble(Longitude.Text) * Math.PI) / 180;
+            double lat2, long2;
+            if (String.IsNullOrEmpty(Latitude.Text)) { lat2 = 0; } else { lat2 = (Convert.ToDouble(Latitude.Text) * Math.PI) / 180; }
+            if (String.IsNullOrEmpty(Longitude.Text)) { long2 = 0; } else { long2 = (Convert.ToDouble(Longitude.Text) * Math.PI) / 180; }
             double dlat = lat2 - lat1;
             double dlong = long2 - long1;
             double a = Math.Pow(Math.Sin(dlat / 2), 2) +
@@ -214,6 +245,11 @@ namespace CS451_Milestone1
             });
         }
 
+        private void addBusinessCategories(NpgsqlDataReader R)
+        {
+            BusinessCategories.Items.Add(R.GetString(0));
+        }
+
         private void zipcodeList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             searchResults.Items.Clear();
@@ -224,6 +260,11 @@ namespace CS451_Milestone1
                     "WHERE state = '" + stateList.SelectedItem + "' AND city = '" + cityList.SelectedItem + "' AND postal_code = " + zipcodeList.SelectedItem + 
                     " ORDER BY name";
                 executeQuery(sqlStr, addSearchResultsRow);
+                BusinessCategories.Items.Clear();
+                string sqlStr2 = "SELECT DISTINCT category FROM Category INNER JOIN Business ON Category.business_id = Business.business_id " +
+                            "WHERE state = '" + stateList.SelectedItem + "' AND city = '" + cityList.SelectedItem + "' AND postal_code = " + zipcodeList.SelectedItem +
+                            " ORDER BY category asc";
+                executeQuery(sqlStr2, addBusinessCategories);
             }
         }
 
