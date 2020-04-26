@@ -33,9 +33,24 @@ namespace CS451_Milestone1
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            UserID.Items.Clear();
             this.username = Username.Text;
             string sqlStr = "SELECT user_id FROM Users WHERE name = '" + username + "'";
             executeQuery(sqlStr, addUserIDList);
+        }
+
+        private void Button_Click2(object sender, RoutedEventArgs e)
+        {
+            Latitude.IsReadOnly = false;
+            Longitude.IsReadOnly = false;
+        }
+
+        private void Button_Click3(object sender, RoutedEventArgs e)
+        {
+            string sqlStr = "UPDATE Users SET latitude = " + Latitude.Text + ", longitude = " + Longitude.Text + " WHERE user_id = '" + userID + "'";
+            executeQuery(sqlStr, addUserInformation);
+            Latitude.IsReadOnly = true;
+            Longitude.IsReadOnly = true;
         }
 
         private void userID_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -47,9 +62,11 @@ namespace CS451_Milestone1
             string sqlStr = "SELECT name, average_stars, fans, yelping_since_time, funny, useful, cool," +
                 "tip_count, total_likes, latitude, longitude FROM Users WHERE user_id = '" + userID + "'";
             executeQuery(sqlStr, addUserInformation);
+            FriendsGrid.Items.Clear();
             string sqlStr2 = "SELECT Users.name, Users.total_likes, Users.average_stars, Users.yelping_since_time, Users.yelping_since_date " +
                 "FROM Friend INNER JOIN Users ON Friend.friend_id = Users.user_id WHERE Friend.user_id = '" + userID + "'";
             executeQuery(sqlStr2, addFriendRow);
+            FriendsTips.Items.Clear();
             string sqlStr3 =
                 "SELECT Friend.friend_id, Users.name, business.name, business.city, tip.text, tip.date, tip.time " +
                 "FROM Friend INNER JOIN Users ON Friend.friend_id = Users.user_id " +
@@ -69,13 +86,13 @@ namespace CS451_Milestone1
         {
             Name.Text = R.GetString(0);
             Stars.Text = R.GetDouble(1).ToString();
-            Fans.Text = R.GetInt16(2).ToString();
+            Fans.Text = R.GetInt64(2).ToString();
             YelpingSince.Text = R.GetString(3);
-            Funny.Text = R.GetInt16(4).ToString();
-            Useful.Text = R.GetInt16(5).ToString();
-            Cool.Text = R.GetInt16(6).ToString();
-            TipCount.Text = R.GetInt16(7).ToString();
-            TotalTipLikes.Text = R.GetInt16(8).ToString();
+            Funny.Text = R.GetInt64(4).ToString();
+            Useful.Text = R.GetInt64(5).ToString();
+            Cool.Text = R.GetInt64(6).ToString();
+            TipCount.Text = R.GetInt64(7).ToString();
+            TotalTipLikes.Text = R.GetInt64(8).ToString();
             Latitude.Text = R.GetDouble(9).ToString();
             Longitude.Text = R.GetDouble(10).ToString();
         }

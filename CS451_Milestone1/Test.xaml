@@ -59,12 +59,12 @@
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                             <TextBlock Margin="30,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="79" Text="Latitude"/>
                             <TextBox Name="Latitude" Margin="0,10,0,0" Width="100" IsReadOnly="True" Background="#EBECF0"/>
-                            <Button Margin="10,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="58">Edit</Button>
+                            <Button Margin="10,10,0,0" Click="Button_Click2" VerticalAlignment="Top" HorizontalAlignment="Left" Width="58">Edit</Button>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                             <TextBlock Margin="30,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="79" Text="Longitude"/>
                             <TextBox Name="Longitude" Margin="0,10,0,0" Width="100" IsReadOnly="True" Background="#EBECF0"/>
-                            <Button Margin="10,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="58">Update</Button>
+                            <Button Margin="10,10,0,0" Click="Button_Click3" VerticalAlignment="Top" HorizontalAlignment="Left" Width="58">Update</Button>
                         </StackPanel>
                     </StackPanel>
                 </GroupBox>
@@ -82,16 +82,16 @@
                     <DataGrid Name="FriendsTips" ItemsSource="{Binding}" AutoGenerateColumns="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="User Name"  Width="70" Binding="{Binding UserName, Mode=OneWay}"/>
-                            <DataGridTextColumn Header="Business" Width="80" Binding="{Binding Business, Mode=OneWay}" />
-                            <DataGridTextColumn Header="City" Width="60" Binding="{Binding City, Mode=OneWay}" />
-                            <DataGridTextColumn Header="Text" Width="400" Binding="{Binding Text, Mode=OneWay}">
+                            <DataGridTextColumn Header="Business" Width="140" Binding="{Binding Business, Mode=OneWay}" />
+                            <DataGridTextColumn Header="City" Width="70" Binding="{Binding City, Mode=OneWay}" />
+                            <DataGridTextColumn Header="Text" Width="320" Binding="{Binding Text, Mode=OneWay}">
                                 <DataGridTextColumn.ElementStyle>
                                     <Style TargetType="TextBlock">
                                         <Setter Property="TextWrapping" Value="Wrap"/>
                                     </Style>
                                 </DataGridTextColumn.ElementStyle>
                             </DataGridTextColumn>
-                            <DataGridTextColumn Header="Date" Width="110" Binding="{Binding Date, Mode=OneWay}" />
+                            <DataGridTextColumn Header="Date" Width="130" Binding="{Binding Date, Mode=OneWay}" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </GroupBox>
