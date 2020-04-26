@@ -268,6 +268,37 @@ namespace CS451_Milestone1
             }
         }
 
+        private void addSelectedBusiness(NpgsqlDataReader R)
+        {
+            DayOfWeek day = DateTime.Today.DayOfWeek;
+            string open = R.GetString(0);
+            int openHour = Convert.ToInt32(open.Substring(0, open.IndexOf(":")));
+            int openMinute = Convert.ToInt32(open.Substring(open.IndexOf(":") + 1));
+            DateTime dt1 = new DateTime(10, 10, 10, openHour, openMinute, 10);
+            string close = R.GetString(1);
+            int closeHour = Convert.ToInt32(close.Substring(0, close.IndexOf(":")));
+            int closeMinute = Convert.ToInt32(close.Substring(close.IndexOf(":") + 1));
+            DateTime dt2 = new DateTime(10, 10, 10, closeHour, closeMinute, 10);
+            string newOpen = String.Format("{0:hh:mm tt}", dt1);
+            string newClose = String.Format("{0:hh:mm tt}", dt2);
+            HoursTextBox.Text = "Today (" + day.ToString() + "):   Opens: " + newOpen + "   Closes: " + newClose;
+        }
+
+        private void searchResults_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (searchResults.SelectedIndex > -1)
+            {
+                object item = searchResults.SelectedItem;
+                string name = (searchResults.SelectedCells[0].Column.GetCellContent(item) as TextBlock).Text;
+                string sqlStr = "SELECT open, close FROM Hours INNER JOIN Business ON Hours.business_id = Business.business_id" +
+                                " WHERE name = '" + name + "' AND day = '" + DateTime.Today.DayOfWeek + "'";
+                executeQuery(sqlStr, addSelectedBusiness);
+
+                BusinessNameTextBox.Text = name;
+                AddressTextBox.Text = cityList.SelectedItem + ", " + stateList.SelectedItem;
+            }
+        }
+
         private string buildConnectionString()
         {
             return "Host = localhost; Username = postgres; Database = Project51; password=Luckyme324";

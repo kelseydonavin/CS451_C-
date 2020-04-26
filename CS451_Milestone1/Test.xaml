@@ -123,7 +123,7 @@
                     </StackPanel>
                 </GroupBox>
                 <GroupBox Header="SEARCH RESULTS" HorizontalAlignment="Left" Height="354" Margin="204,10,0,0" VerticalAlignment="Top" Width="833">
-                    <DataGrid Name="searchResults" ItemsSource="{Binding}" AutoGenerateColumns="True">
+                    <DataGrid Name="searchResults" SelectionChanged="searchResults_SelectionChanged" ItemsSource="{Binding}" AutoGenerateColumns="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Business Name" Width="140" Binding="{Binding BusinessName}"/>
                             <DataGridTextColumn Header="Address" Width="160" Binding="{Binding Address}" />
@@ -139,9 +139,9 @@
                 <GroupBox Header="Selected Business" HorizontalAlignment="Left" Height="309" Margin="204,369,0,0" VerticalAlignment="Top" Width="1084">
                     <WrapPanel>
                         <StackPanel Height="280" Width="650">
-                            <TextBox Margin="25" IsReadOnly="True" Height="30" Text="Business Name" FontWeight="Bold" FontSize="16" Background="#FFB7D6DF"/>
-                            <TextBox Margin="25,0,25,25" IsReadOnly="True" Height="30" Text="Address" FontSize="16" Background="#FFB7D6DF"/>
-                            <TextBox Margin="25,0,25,25" IsReadOnly="True" Height="30" Text="Today: Opens / Closes" FontSize="16" Background="#FFB7D6DF"/>
+                            <TextBox Name="BusinessNameTextBox" Margin="25" IsReadOnly="True" Height="30" Text="Business Name" FontWeight="Bold" FontSize="16" Background="#FFB7D6DF"/>
+                            <TextBox Name="AddressTextBox" Margin="25,0,25,25" IsReadOnly="True" Height="30" Text="Address" FontSize="16" Background="#FFB7D6DF"/>
+                            <TextBox Name="HoursTextBox" Margin="25,0,25,25" IsReadOnly="True" Height="30" Text="Today: Opens / Closes" FontSize="16" Background="#FFB7D6DF"/>
                         </StackPanel>
                         <StackPanel Width="170">
                             <Button Content="Show Checkins" Margin="0,25,0,0" Height="100" Width="130" FontSize="18"/>
