@@ -72,16 +72,74 @@ namespace CS451_Milestone1
             {
                 categoryString += "category = '" + item + "' OR ";
             }
-            categoryString = categoryString.Substring(0, categoryString.Length - 4);
+            if (categoryString.Length > 4)
+            {
+                categoryString = categoryString.Substring(0, categoryString.Length - 4);
+            }
 
-            searchResults.Items.Clear();
-            string sqlStr =
-                "SELECT name, city, state, latitude, longitude, stars, tip_count, check_in_count " +
-                "FROM Business as b INNER JOIN category as c ON b.business_id = c.business_id " +
-                "WHERE state = '" + stateList.SelectedItem + "' AND city = '" + cityList.SelectedItem + "' AND postal_code = " + zipcodeList.SelectedItem +
-                " AND (" + categoryString + ") GROUP BY b.name, b.city, b.state, b.latitude, b.longitude, b.stars, b.tip_count, b.check_in_count " +
-                "Having Count(name) = " + BusinessSelectedCategories.Items.Count + " ORDER BY name";
-            executeQuery(sqlStr, addSearchResultsRow);
+            // Build attribute string for SQL (for filtering based on attributes)
+            List<bool?> attributes = new List<bool?>();
+            string sqlAttributesString = "";
+            List<string> attributeStrings = new List<string>()
+            { "BusinessAcceptsCreditCards", "RestaurantsReservations", "WheelchairAccessible", "OutdoorSeating", "GoodForKids",
+              "RestaurantsGoodForGroups", "RestaurantsDelivery", "RestaurantsTakeOut", "WiFi", "BikeParking" };
+            List<string> attributeValue = new List<string>() { "True", "True", "True", "True", "True", "True", "True", "True", "free", "True" };
+
+            attributes.Add(AcceptsCreditCards.IsChecked);
+            attributes.Add(TakesReservations.IsChecked);
+            attributes.Add(WheelchairAccess.IsChecked);
+            attributes.Add(OutdoorSeating.IsChecked);
+            attributes.Add(GoodForKids.IsChecked);
+            attributes.Add(GoodForGroups.IsChecked);
+            attributes.Add(Delivery.IsChecked);
+            attributes.Add(Takeout.IsChecked);
+            attributes.Add(FreeWiFi.IsChecked);
+            attributes.Add(BikeParking.IsChecked);
+
+            var i = 0;
+            foreach (var item in attributes)
+            {
+                if (item == true)
+                {
+                    sqlAttributesString += "attribute = '" + attributeStrings[i] + "' AND attribute_value = '" + attributeValue[i] + "' AND ";
+                }
+                i++;
+            }
+            if (sqlAttributesString.Length > 4)
+            {
+                sqlAttributesString = sqlAttributesString.Substring(0, sqlAttributesString.Length - 4);
+            }
+
+            // Build price string for SQL (for filtering based on price)
+            List<bool?> price = new List<bool?>();
+            string sqlPriceString = "";
+            List<string> priceValue = new List<string>() { "1", "2", "3", "4" };
+
+            price.Add(Price1.IsChecked);
+            price.Add(Price2.IsChecked);
+            price.Add(Price3.IsChecked);
+            price.Add(Price4.IsChecked);
+
+            var i2 = 0;
+            foreach (var item in price)
+            {
+                if (item == true)
+                {
+                    sqlPriceString += "price = '" + priceValue[i2] + "'";
+                }
+                i2++;
+            }
+
+            // Run SQL query for search results
+            //searchResults.Items.Clear();
+            //string sqlStr =
+            //    "SELECT name, city, state, latitude, longitude, stars, tip_count, check_in_count " +
+            //    "FROM Business as b INNER JOIN category as c ON b.business_id = c.business_id " +
+            //    "WHERE state = '" + stateList.SelectedItem + "' AND city = '" + cityList.SelectedItem + "' AND postal_code = " + zipcodeList.SelectedItem +
+            //    " AND (" + categoryString + ") AND " + sqlPriceString + " AND (" + sqlAttributesString + 
+            //    ") GROUP BY b.name, b.city, b.state, b.latitude, b.longitude, b.stars, b.tip_count, b.check_in_count " +
+            //    "Having Count(name) = " + BusinessSelectedCategories.Items.Count + " ORDER BY name";
+            //executeQuery(sqlStr, addSearchResultsRow);
         }
 
         private void userID_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -296,7 +354,45 @@ namespace CS451_Milestone1
 
                 BusinessNameTextBox.Text = name;
                 AddressTextBox.Text = cityList.SelectedItem + ", " + stateList.SelectedItem;
+
+                // Add business category/attribute Tree View items
+                addTreeView();
             }
+        }
+
+        private void addChildren(NpgsqlDataReader R)
+        {
+            //DayOfWeek day = DateTime.Today.DayOfWeek;
+            //string open = R.GetString(0);
+            //int openHour = Convert.ToInt32(open.Substring(0, open.IndexOf(":")));
+            //int openMinute = Convert.ToInt32(open.Substring(open.IndexOf(":") + 1));
+            //DateTime dt1 = new DateTime(10, 10, 10, openHour, openMinute, 10);
+            //string close = R.GetString(1);
+            //int closeHour = Convert.ToInt32(close.Substring(0, close.IndexOf(":")));
+            //int closeMinute = Convert.ToInt32(close.Substring(close.IndexOf(":") + 1));
+            //DateTime dt2 = new DateTime(10, 10, 10, closeHour, closeMinute, 10);
+            //string newOpen = String.Format("{0:hh:mm tt}", dt1);
+            //string newClose = String.Format("{0:hh:mm tt}", dt2);
+            //HoursTextBox.Text = "Today (" + day.ToString() + "):   Opens: " + newOpen + "   Closes: " + newClose;
+
+            //TreeViewItem child = new TreeViewItem();
+            //child.Header = "temp";
+            //category.Items.Add(child);
+        }
+
+        private void addTreeView()
+        {
+            // Category and Attribute Headers
+            TreeViewItem category = new TreeViewItem();
+            category.Header = "Categories";
+            TreeViewItem attributes = new TreeViewItem();
+            attributes.Header = "Attributes";
+            TreeView.Items.Add(category);
+            TreeView.Items.Add(attributes);
+
+            // Children
+            string sqlStr = "";
+            executeQuery(sqlStr, addChildren);
         }
 
         private string buildConnectionString()

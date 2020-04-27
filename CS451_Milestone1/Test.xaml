@@ -148,44 +148,44 @@
                             <Button Content="Show Tips" Margin="0,25,0,0" Height="100" Width="130" FontSize="18"/>
                         </StackPanel>
                         <StackPanel Width="252">
-                            <TextBox Height="280"/>
+                            <TreeView Name="TreeView" Height="280"/>
                         </StackPanel>
                     </WrapPanel>
                 </GroupBox>
                 <GroupBox Header="Filter by Price" HorizontalAlignment="Left" Height="72" Margin="1042,10,0,0" VerticalAlignment="Top" Width="246">
                     <StackPanel>
                         <WrapPanel>
-                            <CheckBox Margin="50,5,5,5" Content="$"></CheckBox>
-                            <CheckBox Margin="50,5,5,5" Content="$$"></CheckBox>
+                            <CheckBox Name="Price1" Margin="50,5,5,5" Content="$"></CheckBox>
+                            <CheckBox Name="Price2" Margin="50,5,5,5" Content="$$"></CheckBox>
                         </WrapPanel>
                         <WrapPanel>
-                            <CheckBox Margin="50,5,5,5" Content="$$$"></CheckBox>
-                            <CheckBox Margin="37.2,5,5,5" Content="$$$$"></CheckBox>
+                            <CheckBox Name="Price3" Margin="50,5,5,5" Content="$$$"></CheckBox>
+                            <CheckBox Name="Price4" Margin="37.2,5,5,5" Content="$$$$"></CheckBox>
                         </WrapPanel>
                     </StackPanel>
                 </GroupBox>
                 <GroupBox Header="Filter by Attributes" HorizontalAlignment="Left" Height="200" Margin="1042,87,0,0" VerticalAlignment="Top" Width="149">
                     <StackPanel>
-                        <CheckBox Margin="0,2,0,0" Content="Accepts Credit Cards"/>
-                        <CheckBox Margin="0,2,0,0" Content="Takes Reservations"/>
-                        <CheckBox Margin="0,2,0,0" Content="Wheelchair Accessible"/>
-                        <CheckBox Margin="0,2,0,0" Content="Outdoor Seating"/>
-                        <CheckBox Margin="0,2,0,0" Content="Good for Kids"/>
-                        <CheckBox Margin="0,2,0,0" Content="Good for Groups"/>
-                        <CheckBox Margin="0,2,0,0" Content="Delivery"/>
-                        <CheckBox Margin="0,2,0,0" Content="Takeout"/>
-                        <CheckBox Margin="0,2,0,0" Content="Free Wi-Fi"/>
-                        <CheckBox Margin="0,2,0,0" Content="Bike Parking"/>
+                        <CheckBox Name="AcceptsCreditCards" Margin="0,2,0,0" Content="Accepts Credit Cards"/>
+                        <CheckBox Name="TakesReservations" Margin="0,2,0,0" Content="Takes Reservations"/>
+                        <CheckBox Name="WheelchairAccess" Margin="0,2,0,0" Content="Wheelchair Accessible"/>
+                        <CheckBox Name="OutdoorSeating" Margin="0,2,0,0" Content="Outdoor Seating"/>
+                        <CheckBox Name="GoodForKids" Margin="0,2,0,0" Content="Good for Kids"/>
+                        <CheckBox Name="GoodForGroups" Margin="0,2,0,0" Content="Good for Groups"/>
+                        <CheckBox Name="Delivery" Margin="0,2,0,0" Content="Delivery"/>
+                        <CheckBox Name="Takeout" Margin="0,2,0,0" Content="Takeout"/>
+                        <CheckBox Name="FreeWiFi" Margin="0,2,0,0" Content="Free Wi-Fi"/>
+                        <CheckBox Name="BikeParking" Margin="0,2,0,0" Content="Bike Parking"/>
                     </StackPanel>
                 </GroupBox>
                 <GroupBox Header="Filter by Meal" HorizontalAlignment="Left" Height="200" Margin="1196,87,0,0" VerticalAlignment="Top" Width="92">
                     <StackPanel>
-                        <CheckBox Margin="0,5,0,0" Content="Breakfast"/>
-                        <CheckBox Margin="0,5,0,0" Content="Lunch"/>
-                        <CheckBox Margin="0,5,0,0" Content="Brunch"/>
-                        <CheckBox Margin="0,5,0,0" Content="Dinner"/>
-                        <CheckBox Margin="0,5,0,0" Content="Dessert"/>
-                        <CheckBox Margin="0,5,0,0" Content="Late Night"/>
+                        <CheckBox Name="Breakfast" Margin="0,5,0,0" Content="Breakfast"/>
+                        <CheckBox Name="Lunch" Margin="0,5,0,0" Content="Lunch"/>
+                        <CheckBox Name="Brunch" Margin="0,5,0,0" Content="Brunch"/>
+                        <CheckBox Name="Dinner" Margin="0,5,0,0" Content="Dinner"/>
+                        <CheckBox Name="Dessert" Margin="0,5,0,0" Content="Dessert"/>
+                        <CheckBox Name="LateNight" Margin="0,5,0,0" Content="Late Night"/>
                     </StackPanel>
                 </GroupBox>
                 <GroupBox Header="Sort Results by" HorizontalAlignment="Left" Height="72" Margin="1042,292,0,0" VerticalAlignment="Top" Width="246">
