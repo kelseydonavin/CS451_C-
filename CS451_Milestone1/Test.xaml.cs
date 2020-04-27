@@ -25,6 +25,8 @@ namespace CS451_Milestone1
         private string username = "";
         private string userID;
         private List<string> distinctID = new List<string>();
+        private TreeViewItem category = new TreeViewItem();
+        private TreeViewItem attributes = new TreeViewItem();
 
         public Test()
         {
@@ -360,39 +362,40 @@ namespace CS451_Milestone1
             }
         }
 
-        private void addChildren(NpgsqlDataReader R)
+        private void addCategories(NpgsqlDataReader R)
         {
-            //DayOfWeek day = DateTime.Today.DayOfWeek;
-            //string open = R.GetString(0);
-            //int openHour = Convert.ToInt32(open.Substring(0, open.IndexOf(":")));
-            //int openMinute = Convert.ToInt32(open.Substring(open.IndexOf(":") + 1));
-            //DateTime dt1 = new DateTime(10, 10, 10, openHour, openMinute, 10);
-            //string close = R.GetString(1);
-            //int closeHour = Convert.ToInt32(close.Substring(0, close.IndexOf(":")));
-            //int closeMinute = Convert.ToInt32(close.Substring(close.IndexOf(":") + 1));
-            //DateTime dt2 = new DateTime(10, 10, 10, closeHour, closeMinute, 10);
-            //string newOpen = String.Format("{0:hh:mm tt}", dt1);
-            //string newClose = String.Format("{0:hh:mm tt}", dt2);
-            //HoursTextBox.Text = "Today (" + day.ToString() + "):   Opens: " + newOpen + "   Closes: " + newClose;
+            category.Items.Add(new TreeViewItem() { Header=R.GetString(0)});
+        }
 
-            //TreeViewItem child = new TreeViewItem();
-            //child.Header = "temp";
-            //category.Items.Add(child);
+        private void addAttributes(NpgsqlDataReader R)
+        {
+            if (R.GetString(1) == "True")
+            {
+                attributes.Items.Add(new TreeViewItem() { Header = R.GetString(0) });
+            }
+            else
+            {
+                attributes.Items.Add(new TreeViewItem() { Header = (R.GetString(0) + " (" + R.GetString(1) + ")") });
+            }
         }
 
         private void addTreeView()
         {
-            // Category and Attribute Headers
-            TreeViewItem category = new TreeViewItem();
-            category.Header = "Categories";
-            TreeViewItem attributes = new TreeViewItem();
-            attributes.Header = "Attributes";
+            TreeView.Items.Clear();
+            this.category.Header = "Categories";
             TreeView.Items.Add(category);
+            this.attributes.Header = "Attributes";
             TreeView.Items.Add(attributes);
 
-            // Children
-            string sqlStr = "";
-            executeQuery(sqlStr, addChildren);
+            object item = searchResults.SelectedItem;
+            string name = (searchResults.SelectedCells[0].Column.GetCellContent(item) as TextBlock).Text;
+
+            string sqlStr = "SELECT category FROM business as b INNER JOIN category as c ON b.business_id = c.business_id WHERE name = '" + name + "' ORDER BY category";
+            executeQuery(sqlStr, addCategories);
+
+            string sqlStr2 = "SELECT attribute, attribute_value FROM business as b INNER JOIN attribute as a ON b.business_id = a.business_id " +
+                             "WHERE name = '" + name + "' AND attribute_value<> 'False' ORDER BY attribute";
+            executeQuery(sqlStr2, addAttributes);
         }
 
         private string buildConnectionString()
