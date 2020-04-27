@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Configuration;
 using Npgsql;
+using System.ComponentModel;
 
 namespace CS451_Milestone1
 {
@@ -396,6 +397,19 @@ namespace CS451_Milestone1
             string sqlStr2 = "SELECT attribute, attribute_value FROM business as b INNER JOIN attribute as a ON b.business_id = a.business_id " +
                              "WHERE name = '" + name + "' AND attribute_value<> 'False' ORDER BY attribute";
             executeQuery(sqlStr2, addAttributes);
+        }
+
+        private void sortList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            List<string> column = new List<string>() { "name", "stars", "tip_count", "check_in_count", "name" };
+            List<string> direction = new List<string>() { "asc", "desc", "desc", "desc", "asc" };
+            searchResults.Items.Clear();
+            // INSERT search results query here, then add the correct ORDER BY
+            string sqlStr = "SELECT name, city, state, latitude, longitude, stars, tip_count, check_in_count " +
+                            "FROM Business " +
+                            "WHERE state = '" + stateList.SelectedItem + "' AND city = '" + cityList.SelectedItem + "' AND postal_code = " + zipcodeList.SelectedItem +
+                            " ORDER BY " + column[Sort.SelectedIndex] + " " + direction[Sort.SelectedIndex];
+            executeQuery(sqlStr, addSearchResultsRow);
         }
 
         private string buildConnectionString()

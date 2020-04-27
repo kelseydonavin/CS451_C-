@@ -189,7 +189,12 @@
                     </StackPanel>
                 </GroupBox>
                 <GroupBox Header="Sort Results by" HorizontalAlignment="Left" Height="72" Margin="1042,292,0,0" VerticalAlignment="Top" Width="246">
-                    <ComboBox Text="Name (default)" Margin="12" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" IsEditable="True">
+                    <ComboBox Name="Sort" Text="Name (default)" SelectionChanged="sortList_SelectionChanged" Margin="12" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" IsEditable="True">
+                        <ComboBoxItem>Name (default)</ComboBoxItem>
+                        <ComboBoxItem>Highest Rated</ComboBoxItem>
+                        <ComboBoxItem>Most # of Tips</ComboBoxItem>
+                        <ComboBoxItem>Most Checkins</ComboBoxItem>
+                        <ComboBoxItem>Nearest</ComboBoxItem>
                     </ComboBox>
                 </GroupBox>
             </Grid>
