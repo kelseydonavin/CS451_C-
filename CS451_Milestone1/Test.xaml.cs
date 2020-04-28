@@ -65,28 +65,17 @@ namespace CS451_Milestone1
         private void Button_Click5(object sender, RoutedEventArgs e)
         {
             BusinessSelectedCategories.Items.Remove(BusinessSelectedCategories.SelectedItem);
+            BusinessCategories.UnselectAll();
         }
 
         private void Button_Click6(object sender, RoutedEventArgs e)
         {
-            // Build category string for SQL
-            string categoryString = "";
-            foreach (var item in BusinessSelectedCategories.Items)
-            {
-                categoryString += "category = '" + item + "' OR ";
-            }
-            if (categoryString.Length > 4)
-            {
-                categoryString = categoryString.Substring(0, categoryString.Length - 4);
-            }
-
-            // Build attribute string for SQL (for filtering based on attributes)
             List<bool?> attributes = new List<bool?>();
-            string sqlAttributesString = "";
             List<string> attributeStrings = new List<string>()
             { "BusinessAcceptsCreditCards", "RestaurantsReservations", "WheelchairAccessible", "OutdoorSeating", "GoodForKids",
-              "RestaurantsGoodForGroups", "RestaurantsDelivery", "RestaurantsTakeOut", "WiFi", "BikeParking" };
-            List<string> attributeValue = new List<string>() { "True", "True", "True", "True", "True", "True", "True", "True", "free", "True" };
+              "RestaurantsGoodForGroups", "RestaurantsDelivery", "RestaurantsTakeOut", "WiFi", "BikeParking", "RestaurantsPriceRange2",
+              "RestaurantsPriceRange2", "RestaurantsPriceRange2", "RestaurantsPriceRange2", };
+            List<string> attributeValueStrings = new List<string>() { "True", "True", "True", "True", "True", "True", "True", "True", "free", "True", "1", "2", "3", "4" };
 
             attributes.Add(AcceptsCreditCards.IsChecked);
             attributes.Add(TakesReservations.IsChecked);
@@ -98,51 +87,84 @@ namespace CS451_Milestone1
             attributes.Add(Takeout.IsChecked);
             attributes.Add(FreeWiFi.IsChecked);
             attributes.Add(BikeParking.IsChecked);
+            attributes.Add(Price1.IsChecked);
+            attributes.Add(Price2.IsChecked);
+            attributes.Add(Price3.IsChecked);
+            attributes.Add(Price4.IsChecked);
 
-            var i = 0;
+            // Run SQL query for search results
+            searchResults.Items.Clear();
+
+            string categoryString = "";
+            if (BusinessCategories.SelectedItems.Count != 0)
+            {
+                categoryString += "AND c.category IN (";
+                foreach (var item in BusinessSelectedCategories.Items)
+                {
+                    categoryString += "'" + item + "',";
+                }
+            }
+            if (categoryString.Length > 1)
+            {
+                categoryString = categoryString.Substring(0, categoryString.Length - 1);
+                categoryString += ") GROUP BY name HAVING Count(name) = " + BusinessSelectedCategories.Items.Count;
+            }
+
+            string attributeString = "";
+            int i = 0;
+            int count = 0;
+            if (attributes.Contains(true))
+            {
+                attributeString += "AND a.attribute IN (";
+            }
             foreach (var item in attributes)
             {
                 if (item == true)
                 {
-                    sqlAttributesString += "attribute = '" + attributeStrings[i] + "' AND attribute_value = '" + attributeValue[i] + "' AND ";
+                    attributeString += "'" + attributeStrings[i] + "',";
+                    count++;
                 }
                 i++;
             }
-            if (sqlAttributesString.Length > 4)
+            if (attributeString.Length > 1)
             {
-                sqlAttributesString = sqlAttributesString.Substring(0, sqlAttributesString.Length - 4);
+                attributeString = attributeString.Substring(0, attributeString.Length - 1);
+                attributeString += ") ";
             }
 
-            // Build price string for SQL (for filtering based on price)
-            List<bool?> price = new List<bool?>();
-            string sqlPriceString = "";
-            List<string> priceValue = new List<string>() { "1", "2", "3", "4" };
-
-            price.Add(Price1.IsChecked);
-            price.Add(Price2.IsChecked);
-            price.Add(Price3.IsChecked);
-            price.Add(Price4.IsChecked);
-
-            var i2 = 0;
-            foreach (var item in price)
+            int i2 = 0;
+            string attributeValueString = "";
+            if (attributes.Contains(true))
+            {
+                attributeValueString += "AND a.attribute_value IN (";
+            }
+            foreach (var item in attributes)
             {
                 if (item == true)
                 {
-                    sqlPriceString += "price = '" + priceValue[i2] + "'";
+                    attributeValueString += "'" + attributeValueStrings[i2] + "',";
                 }
                 i2++;
             }
+            if (attributeValueString.Length > 1)
+            {
+                attributeValueString = attributeValueString.Substring(0, attributeValueString.Length - 1);
+                attributeValueString += ") GROUP BY name HAVING Count(name) = " + count;
+            }
 
-            // Run SQL query for search results
-            //searchResults.Items.Clear();
-            //string sqlStr =
-            //    "SELECT name, city, state, latitude, longitude, stars, tip_count, check_in_count " +
-            //    "FROM Business as b INNER JOIN category as c ON b.business_id = c.business_id " +
-            //    "WHERE state = '" + stateList.SelectedItem + "' AND city = '" + cityList.SelectedItem + "' AND postal_code = " + zipcodeList.SelectedItem +
-            //    " AND (" + categoryString + ") AND " + sqlPriceString + " AND (" + sqlAttributesString + 
-            //    ") GROUP BY b.name, b.city, b.state, b.latitude, b.longitude, b.stars, b.tip_count, b.check_in_count " +
-            //    "Having Count(name) = " + BusinessSelectedCategories.Items.Count + " ORDER BY name";
-            //executeQuery(sqlStr, addSearchResultsRow);
+            string sqlStr =
+                "SELECT distinct name, city, state, latitude, longitude, stars, tip_count, check_in_count FROM business " +
+                "WHERE state = '" + stateList.SelectedItem + "' AND city = '" + cityList.SelectedItem + "' AND postal_code = " + zipcodeList.SelectedItem + " " + 
+                "AND name IN " +
+                    "(SELECT name FROM business as b INNER JOIN category as c ON b.business_id = c.business_id " +
+                    "WHERE state = '" + stateList.SelectedItem + "' AND city = '" + cityList.SelectedItem + "' AND postal_code = " + zipcodeList.SelectedItem + " " +
+                    categoryString + ") " +
+                "AND name IN " +
+                    "(SELECT name FROM business as b INNER JOIN attribute as a ON b.business_id = a.business_id " +
+                    "WHERE state = '" + stateList.SelectedItem + "' AND city = '" + cityList.SelectedItem + "' AND postal_code = " + zipcodeList.SelectedItem + " " +
+                    attributeString + attributeValueString + ") " +
+                "ORDER BY name";
+            executeQuery(sqlStr, addSearchResultsRow);
         }
 
         private void userID_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -403,12 +425,102 @@ namespace CS451_Milestone1
         {
             List<string> column = new List<string>() { "name", "stars", "tip_count", "check_in_count", "name" };
             List<string> direction = new List<string>() { "asc", "desc", "desc", "desc", "asc" };
+
+            List<bool?> attributes = new List<bool?>();
+            List<string> attributeStrings = new List<string>()
+            { "BusinessAcceptsCreditCards", "RestaurantsReservations", "WheelchairAccessible", "OutdoorSeating", "GoodForKids",
+              "RestaurantsGoodForGroups", "RestaurantsDelivery", "RestaurantsTakeOut", "WiFi", "BikeParking", "RestaurantsPriceRange2",
+              "RestaurantsPriceRange2", "RestaurantsPriceRange2", "RestaurantsPriceRange2", };
+            List<string> attributeValueStrings = new List<string>() { "True", "True", "True", "True", "True", "True", "True", "True", "free", "True", "1", "2", "3", "4" };
+
+            attributes.Add(AcceptsCreditCards.IsChecked);
+            attributes.Add(TakesReservations.IsChecked);
+            attributes.Add(WheelchairAccess.IsChecked);
+            attributes.Add(OutdoorSeating.IsChecked);
+            attributes.Add(GoodForKids.IsChecked);
+            attributes.Add(GoodForGroups.IsChecked);
+            attributes.Add(Delivery.IsChecked);
+            attributes.Add(Takeout.IsChecked);
+            attributes.Add(FreeWiFi.IsChecked);
+            attributes.Add(BikeParking.IsChecked);
+            attributes.Add(Price1.IsChecked);
+            attributes.Add(Price2.IsChecked);
+            attributes.Add(Price3.IsChecked);
+            attributes.Add(Price4.IsChecked);
+
+            // Run SQL query for search results
             searchResults.Items.Clear();
-            // INSERT search results query here, then add the correct ORDER BY
-            string sqlStr = "SELECT name, city, state, latitude, longitude, stars, tip_count, check_in_count " +
-                            "FROM Business " +
-                            "WHERE state = '" + stateList.SelectedItem + "' AND city = '" + cityList.SelectedItem + "' AND postal_code = " + zipcodeList.SelectedItem +
-                            " ORDER BY " + column[Sort.SelectedIndex] + " " + direction[Sort.SelectedIndex];
+
+            string categoryString = "";
+            if (BusinessCategories.SelectedItems.Count != 0)
+            {
+                categoryString += "AND c.category IN (";
+                foreach (var item in BusinessSelectedCategories.Items)
+                {
+                    categoryString += "'" + item + "',";
+                }
+            }
+            if (categoryString.Length > 1)
+            {
+                categoryString = categoryString.Substring(0, categoryString.Length - 1);
+                categoryString += ") GROUP BY name HAVING Count(name) = " + BusinessSelectedCategories.Items.Count;
+            }
+
+            string attributeString = "";
+            int i = 0;
+            int count = 0;
+            if (attributes.Contains(true))
+            {
+                attributeString += "AND a.attribute IN (";
+            }
+            foreach (var item in attributes)
+            {
+                if (item == true)
+                {
+                    attributeString += "'" + attributeStrings[i] + "',";
+                    count++;
+                }
+                i++;
+            }
+            if (attributeString.Length > 1)
+            {
+                attributeString = attributeString.Substring(0, attributeString.Length - 1);
+                attributeString += ") ";
+            }
+
+            int i2 = 0;
+            string attributeValueString = "";
+            if (attributes.Contains(true))
+            {
+                attributeValueString += "AND a.attribute_value IN (";
+            }
+            foreach (var item in attributes)
+            {
+                if (item == true)
+                {
+                    attributeValueString += "'" + attributeValueStrings[i2] + "',";
+                }
+                i2++;
+            }
+            if (attributeValueString.Length > 1)
+            {
+                attributeValueString = attributeValueString.Substring(0, attributeValueString.Length - 1);
+                attributeValueString += ") GROUP BY name HAVING Count(name) = " + count;
+            }
+
+            searchResults.Items.Clear();
+            string sqlStr =
+                "SELECT distinct name, city, state, latitude, longitude, stars, tip_count, check_in_count FROM business " +
+                "WHERE state = '" + stateList.SelectedItem + "' AND city = '" + cityList.SelectedItem + "' AND postal_code = " + zipcodeList.SelectedItem + " " +
+                "AND name IN " +
+                    "(SELECT name FROM business as b INNER JOIN category as c ON b.business_id = c.business_id " +
+                    "WHERE state = '" + stateList.SelectedItem + "' AND city = '" + cityList.SelectedItem + "' AND postal_code = " + zipcodeList.SelectedItem + " " +
+                    categoryString + ") " +
+                "AND name IN " +
+                    "(SELECT name FROM business as b INNER JOIN attribute as a ON b.business_id = a.business_id " +
+                    "WHERE state = '" + stateList.SelectedItem + "' AND city = '" + cityList.SelectedItem + "' AND postal_code = " + zipcodeList.SelectedItem + " " +
+                    attributeString + attributeValueString + ") " +
+                "ORDER BY " + column[Sort.SelectedIndex] + " " + direction[Sort.SelectedIndex];
             executeQuery(sqlStr, addSearchResultsRow);
         }
 
