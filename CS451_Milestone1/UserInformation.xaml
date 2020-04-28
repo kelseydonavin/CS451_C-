@@ -5,8 +5,92 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CS451_Milestone1"
         mc:Ignorable="d"
-        Title="UserInformation" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="Yelp" Margin="0" Height="768.267" Width="1324.494">
+    <TabControl HorizontalAlignment="Left" Height="721" Margin="10,10,0,0" VerticalAlignment="Top" Width="1304">
+        <TabItem Header="User Information">
+            <Grid Background="#D3D3D3">
+                <GroupBox Header="Set Current User" HorizontalAlignment="Left" Height="310" Margin="10,10,0,0" VerticalAlignment="Top" Width="200">
+                    <StackPanel>
+                        <TextBox x:Name="Username" Height="23" Margin="5,10,5,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+                        <TextBox Margin="5,10,5,0" TextWrapping="Wrap" Height="237"/>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Header="User Information" HorizontalAlignment="Left" Height="310" Margin="215,10,0,0" VerticalAlignment="Top" Width="300">
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <TextBlock Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="39" Text="Name"/>
+                            <TextBox Margin="60,10,0,0" Width="170" IsReadOnly="True" Background="#EBECF0"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <TextBlock Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="39" Text="Stars"/>
+                            <TextBox Margin="60,10,0,0" Width="170" IsReadOnly="True" Background="#EBECF0"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <TextBlock Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="39" Text="Fans"/>
+                            <TextBox Margin="60,10,0,0" Width="170" IsReadOnly="True" Background="#EBECF0"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <TextBlock Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="80" Text="Yelping Since"/>
+                            <TextBox Margin="19,10,0,0" Width="170" IsReadOnly="True" Background="#EBECF0"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <TextBlock Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="39" Text="Votes:"/>
+                            <TextBlock Margin="13,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="37" Text="Funny"/>
+                            <TextBox Margin="0,10,0,0" Width="35" IsReadOnly="True" Background="#EBECF0"/>
+                            <TextBlock Margin="5,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="37" Text="Useful"/>
+                            <TextBox Margin="0,10,0,0" Width="35" IsReadOnly="True" Background="#EBECF0"/>
+                            <TextBlock Margin="5,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="27" Text="Cool"/>
+                            <TextBox Margin="0,10,0,0" Width="35" IsReadOnly="True" Background="#EBECF0"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <TextBlock Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="80" Text="Tip Count"/>
+                            <TextBox Margin="19,10,0,0" Width="170" IsReadOnly="True" Background="#EBECF0"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <TextBlock Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="80" Text="Total Tip Likes"/>
+                            <TextBox Margin="19,10,0,0" Width="170" IsReadOnly="True" Background="#EBECF0"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <TextBlock Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="80" Text="Location"/>
+                            <TextBox Margin="19,10,0,0" Width="170" IsReadOnly="True" Background="#EBECF0"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <TextBlock Margin="30,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="79" Text="Latitude"/>
+                            <TextBox Margin="0,10,0,0" Width="100" IsReadOnly="True" Background="#EBECF0"/>
+                            <Button Margin="10,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="58">Edit</Button>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <TextBlock Margin="30,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="79" Text="Longitude"/>
+                            <TextBox Margin="0,10,0,0" Width="100" IsReadOnly="True" Background="#EBECF0"/>
+                            <Button Margin="10,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="58">Update</Button>
+                        </StackPanel>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Header="Friends" HorizontalAlignment="Left" Height="358" Margin="10,325,0,0" VerticalAlignment="Top" Width="505">
+                    <DataGrid Name="DG1" ItemsSource="{Binding}" AutoGenerateColumns="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Name"  Width="100" Binding="{Binding Name}"/>
+                            <DataGridTextColumn Header="Total Likes" Width="80" Binding="{Binding TotalLikes}" />
+                            <DataGridCheckBoxColumn Header="Avg Stars" Width="80" Binding="{Binding AvgStars}" />
+                            <DataGridComboBoxColumn Header="Yelping Since" Width="232" SelectedItemBinding="{Binding YelpingSince}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </GroupBox>
+                <GroupBox Header="Latest Tips from Friends" HorizontalAlignment="Left" Height="673" Margin="520,10,0,0" VerticalAlignment="Top" Width="768">
+                    <DataGrid Name="DG2" ItemsSource="{Binding}" AutoGenerateColumns="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="User Name"  Width="100" Binding="{Binding UserName}"/>
+                            <DataGridTextColumn Header="Business" Width="100" Binding="{Binding Business}" />
+                            <DataGridCheckBoxColumn Header="City" Width="80" Binding="{Binding City}" />
+                            <DataGridComboBoxColumn Header="Text" Width="326" SelectedItemBinding="{Binding Text}" />
+                            <DataGridComboBoxColumn Header="Date" Width="150" SelectedItemBinding="{Binding Date}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </GroupBox>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Business Search">
+            <Grid Background="#FFE5E5E5"/>
+        </TabItem>
+    </TabControl>
 </Window>

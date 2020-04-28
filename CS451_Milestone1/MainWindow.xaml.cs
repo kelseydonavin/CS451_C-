@@ -45,7 +45,6 @@ namespace CS451_Milestone1
 
         }
 
-
         private void addState()
         {
             using (var connection = new NpgsqlConnection(buildConnectionString()))
@@ -72,7 +71,6 @@ namespace CS451_Milestone1
                     }
                 }
             }
-            
         }
 
         private void addZipCode()
