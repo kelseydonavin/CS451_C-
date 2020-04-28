@@ -413,10 +413,10 @@ namespace CS451_Milestone1
             object item = searchResults.SelectedItem;
             string name = (searchResults.SelectedCells[0].Column.GetCellContent(item) as TextBlock).Text;
 
-            string sqlStr = "SELECT category FROM business as b INNER JOIN category as c ON b.business_id = c.business_id WHERE name = '" + name + "' ORDER BY category";
+            string sqlStr = "SELECT distinct category FROM business as b INNER JOIN category as c ON b.business_id = c.business_id WHERE name = '" + name + "' ORDER BY category";
             executeQuery(sqlStr, addCategories);
 
-            string sqlStr2 = "SELECT attribute, attribute_value FROM business as b INNER JOIN attribute as a ON b.business_id = a.business_id " +
+            string sqlStr2 = "SELECT distinct attribute, attribute_value FROM business as b INNER JOIN attribute as a ON b.business_id = a.business_id " +
                              "WHERE name = '" + name + "' AND attribute_value<> 'False' ORDER BY attribute";
             executeQuery(sqlStr2, addAttributes);
         }
@@ -557,6 +557,32 @@ namespace CS451_Milestone1
                     }
                 }
             }
+        }
+
+
+
+        private void ShowCheckins_Click(object sender, RoutedEventArgs e)
+        {
+            string sqlStr = "SELECT ";
+
+            executeQuery(sqlStr, addSearchResultsRow);
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            object item = searchResults.SelectedItem;
+            string name = (searchResults.SelectedCells[0].Column.GetCellContent(item) as TextBlock).Text;
+            string sqlStr = "SELECT tip.date, users.name, tip.likes, tip.text " +
+                "FROM tip, users, business" +
+                "WHERE business.name = '" + name + "'" +
+                "AND business.business_id = tip.business_id" +
+                "AND tip.user_id = users.user_id";
+
+            BuisnessTips businessWindow = new BuisnessTips();
+
+            executeQuery(sqlStr, businessWindow.addTipResultsRow);
+
+            businessWindow.Show();
         }
     }
 }
