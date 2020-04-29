@@ -563,9 +563,18 @@ namespace CS451_Milestone1
 
         private void ShowCheckins_Click(object sender, RoutedEventArgs e)
         {
-            string sqlStr = "SELECT ";
+            object item = searchResults.SelectedItem;
+            string name = (searchResults.SelectedCells[0].Column.GetCellContent(item) as TextBlock).Text;
+            string sqlStr = "SELECT  business.name, check_in.month, check_in.day, check_in.year " +
+                "FROM check_in,business " +
+                "WHERE business.name = '" + name + "' " +
+                "AND business.business_id = check_in.business_id";
+            
+            CheckIn checkInWindow = new CheckIn();
 
-            executeQuery(sqlStr, addSearchResultsRow);
+            executeQuery(sqlStr, checkInWindow.addCheckInResultsRow);
+
+            checkInWindow.Show();
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -573,9 +582,9 @@ namespace CS451_Milestone1
             object item = searchResults.SelectedItem;
             string name = (searchResults.SelectedCells[0].Column.GetCellContent(item) as TextBlock).Text;
             string sqlStr = "SELECT tip.date, users.name, tip.likes, tip.text " +
-                "FROM tip, users, business" +
-                "WHERE business.name = '" + name + "'" +
-                "AND business.business_id = tip.business_id" +
+                "FROM tip, users, business " +
+                "WHERE business.name = '" + name + "' " +
+                "AND business.business_id = tip.business_id " +
                 "AND tip.user_id = users.user_id";
 
             BuisnessTips businessWindow = new BuisnessTips();
