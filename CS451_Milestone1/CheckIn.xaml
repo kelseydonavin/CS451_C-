@@ -5,8 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CS451_Milestone1"
         mc:Ignorable="d"
-        Title="CheckIn" Height="450" Width="800">
+        Title="Check In" Height="450" Width="800">
     <Grid>
-        
+        <DataGrid x:Name="Check_In" HorizontalAlignment="Left" Height="340" Margin="54,45,0,0" VerticalAlignment="Top" Width="678">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="Name" Header="Name"/>
+                <DataGridTextColumn x:Name="Month" Header="Month"/>
+                <DataGridTextColumn x:Name="Day" Header="Day"/>
+                <DataGridTextColumn x:Name="Year" Header="Year"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
     </Grid>
 </Window>
