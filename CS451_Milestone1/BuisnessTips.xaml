@@ -7,7 +7,14 @@
         mc:Ignorable="d"
         Title="BuisnessTips" Height="450" Width="800">
     <Grid>
-        <DataGrid HorizontalAlignment="Left" Height="197" Margin="10,50,0,0" VerticalAlignment="Top" Width="773"/>
+        <DataGrid x:Name="BusinessTipsTable" HorizontalAlignment="Left" Height="197" Margin="10,50,0,0" VerticalAlignment="Top" Width="773" SelectionChanged="DataGrid_SelectionChanged" AddingNewItem="addTipResultsRow">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="Date" Header="Date"/>
+                <DataGridTextColumn x:Name="Name" Header="Name"/>
+                <DataGridTextColumn x:Name="Likes" Header="Likes"/>
+                <DataGridTextColumn x:Name="Text" Header="Text"/>
+            </DataGrid.Columns>
+        </DataGrid>
         <TextBox HorizontalAlignment="Left" Height="97" Margin="10,273,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="773"/>
         <TextBlock HorizontalAlignment="Left" Margin="10,254,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="Create New Tip"/><LineBreak/><Run/></TextBlock>
         <TextBlock HorizontalAlignment="Left" Margin="10,29,0,0" TextWrapping="Wrap" Text="Business Tips" VerticalAlignment="Top"/>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Npgsql;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,22 @@ namespace CS451_Milestone1
         public BuisnessTips()
         {
             InitializeComponent();
+        }
+
+        public void addTipResultsRow(NpgsqlDataReader R)
+        {
+            BusinessTipsTable.Items.Add(new
+            {
+                Date = R.GetString(0),
+                Name = R.GetString(1),
+                Likes = R.GetString(2),
+                Text = R.GetString(3)
+            });
+        }
+
+        private void DataGrid_AddingNewItem(object sender, AddingNewItemEventArgs e)
+        {
+            
         }
     }
 }
